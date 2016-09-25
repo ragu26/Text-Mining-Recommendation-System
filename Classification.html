@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0106)file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Classification</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-07-19"><meta name="DC.source" content="Classification.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#1">Take the training, validation and the test sets</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#2">Take equal Representative Sample</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#3">Actual Representative Sample</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#4">Data reduction</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#5">Naive Bayes</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#6">Random Forest</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#7">bootstrap size 66% equal</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#8">bootstrap size 66% actual</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#9">bootstrap size 75% equal</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#10">bootstrap size 75% Actual</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#11">bootstrap size 85% equal</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#12">bootstrap size 85% actual</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#13">To choose Out-of-Bag Classification Error equal</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#14">To choose Out-of-Bag Classification Error actual</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#15">Training a classification tree with the original training set after the parameters are chosen through CV - for tree bagger no explicit CV methods were used</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#16">Prediction</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#17">Margin OOB</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#18">Variable Improtance</a></li><li><a href="file:///C:/Users/Ragu/AppData/Local/Temp/acrord32_sbx/A9Rczxhqw_1hmwnk7_6ts.tmp/Classification%20Code.html#19">Error</a></li></ul></div><h2>Take the training, validation and the test sets<a name="1"></a></h2><pre class="codeinput">rng(1234);
+
+<span class="comment">% X constains predictors and Y contains target</span>
+<span class="comment">%training and validation together</span>
+sample_train = datasample(1:n,483186,<span class="string">'Replace'</span>,false);
+sample_test = setdiff(1:n,sample_train);
+
+<span class="comment">% Initial Exploration of the clusters</span>
+<span class="comment">%summary(categorical(Y))</span>
+<span class="comment">%      1       30418</span>
+<span class="comment">%      2       16846</span>
+<span class="comment">%      3      336903</span>
+<span class="comment">%      4       40628</span>
+<span class="comment">%      5       58391</span>
+
+<span class="comment">%Taking clusterwise indices</span>
+<span class="comment">% I1=find(Y==1);</span>
+<span class="comment">% I2=find(Y==2);</span>
+<span class="comment">% I3=find(Y==3);</span>
+<span class="comment">% I4=find(Y==4);</span>
+<span class="comment">% I5=find(Y==5);</span>
+</pre><h2>Take equal Representative Sample<a name="2"></a></h2><pre class="codeinput">sample_train1 = datasample(I1,15000,<span class="string">'Replace'</span>,false);
+sample_train2 = datasample(I2,15000,<span class="string">'Replace'</span>,false);
+sample_train3 = datasample(I3,15000,<span class="string">'Replace'</span>,false);
+sample_train4 = datasample(I4,15000,<span class="string">'Replace'</span>,false);
+sample_train5 = datasample(I5,15000,<span class="string">'Replace'</span>,false);
+sample_trainnew=[sample_train1;sample_train2;sample_train3;sample_train4;sample_train5];
+
+<span class="comment">%Take the reminder</span>
+sample_test1=setdiff(1:size(sample_train,2),sample_train1);
+sample_test2=setdiff(sample_test1,sample_train2);
+sample_test3=setdiff(sample_test2,sample_train3);
+sample_test4=setdiff(sample_test3,sample_train4);
+sample_testnew=setdiff(sample_test4,sample_train5);
+
+Xtrain_new=X(sample_trainnew,:);
+Ytrain_new=target(sample_trainnew);
+
+Xtest_new=X(sample_testnew,:);
+Ytest_new=target(sample_testnew);
+</pre><pre class="codeoutput error">Undefined function or variable 'I1'.
+
+Error in Classification (line 25)
+sample_train1 = datasample(I1,15000,'Replace',false);
+</pre><h2>Actual Representative Sample<a name="3"></a></h2><pre class="codeinput">sample_trainub1 = datasample(I1,4727,<span class="string">'Replace'</span>,false);
+sample_trainub2 = datasample(I2,2608,<span class="string">'Replace'</span>,false);
+sample_trainub3 = datasample(I3,52273,<span class="string">'Replace'</span>,false);
+sample_trainub4 = datasample(I4,6304,<span class="string">'Replace'</span>,false);
+sample_trainub5 = datasample(I5,9086,<span class="string">'Replace'</span>,false);
+sample_trainubnew=[sample_trainub1;sample_trainub2;sample_trainub3;sample_trainub4;sample_trainub5];
+
+<span class="comment">%Take the reminder</span>
+sample_testub1=setdiff(1:size(sample_train,2),sample_trainub1);
+sample_testub2=setdiff(sample_testub1,sample_trainub2);
+sample_testub3=setdiff(sample_testub2,sample_trainub3);
+sample_testub4=setdiff(sample_testub3,sample_trainub4);
+sample_testubnew=setdiff(sample_testub4,sample_trainub5);
+
+Xtrain_ubnew=X(sample_trainubnew,:);
+Ytrain_ubnew=target(sample_trainubnew);
+
+Xtest_ubnew=X(sample_testubnew,:);
+Ytest_ubnew=target(sample_testubnew);
+</pre><h2>Data reduction<a name="4"></a></h2><pre class="codeinput">cvfit_glmnet = cvglmnet(Xtrain_new, Ytrain_new,<span class="string">'multinomial'</span>);
+cvglmnetPlot(cvfit_glmnet);
+
+cvfit_glmnet = cvglmnet(Xtrain_ubnew, Ytrain_ubnew,<span class="string">'multinomial'</span>);
+cvglmnetPlot(cvfit_glmnet);
+
+cvfit_glmnetfinal = cvglmnet(Xtrain, Ytrain,<span class="string">'multinomial'</span>);
+opt.lambda_min=[0.0002];
+fit_glmnetfinal=glmnet(X,target,<span class="string">'multinomial'</span>, opt);
+
+reduced_pred=find(cvfit_glmnet.glmnet_fit.beta{2}(:,67));
+nnz(reduced_pred);
+</pre><h2>Naive Bayes<a name="5"></a></h2><pre class="codeinput"><span class="comment">% Equal representative sample</span>
+Mdl = fitcnb(Xtrain_new,Ytrain_new);
+label = predict(Mdl,Xtest_new);
+<span class="comment">%labelp=posterior(Mdl,Xtest);</span>
+sum(Ytest_new==label)
+<span class="comment">% 109363</span>
+labeln=label-1;
+labelp=label+1;
+sum(Ytest_new==labeln)
+<span class="comment">%      51071</span>
+
+sum(Ytest_new==labelp)
+<span class="comment">%   52105</span>
+
+<span class="comment">%Actual Representative Sample</span>
+Mdlub = fitcnb(Xtrain_ubnew,Ytrain_ubnew);
+labelub = predict(Mdlub,Xtest_ubnew);
+<span class="comment">%labelp=posterior(Mdl,Xtest);</span>
+sum(Ytest_ubnew==labelub)
+<span class="comment">%   106732</span>
+
+<span class="comment">%Cross Validation equal representative sample</span>
+rng(1234); <span class="comment">% For reproducibility</span>
+CVMdl = crossval(Mdl,<span class="string">'KFold'</span>,5);
+CVMdl_k=fitcnb(Xtrain_new,Ytrain_new,<span class="string">'KFold'</span>,5);
+labelCV = predict(CVMdl_k,Xtest);
+modelCVLoss = kfoldLoss(CVMdl_k);
+testingLoss1 = loss(CVMdl_k.Trained{1},Xtest_new,Ytest_new);
+testingLoss2 = loss(CVMdl_k.Trained{2},Xtest_new,Ytest_new);
+testingLoss3 = loss(CVMdl_k.Trained{3},Xtest_new,Ytest_new);
+testingLoss4 = loss(CVMdl_k.Trained{4},Xtest_new,Ytest_new);
+testingLoss5 = loss(CVMdl_k.Trained{5},Xtest_new,Ytest_new);
+
+<span class="comment">%Cross Validation actual representative sample</span>
+rng(1234); <span class="comment">% For reproducibility</span>
+CVMdlub = crossval(Mdlub,<span class="string">'KFold'</span>,5);
+CVMdl_kub=fitcnb(Xtrain_new,Ytrain_new,<span class="string">'KFold'</span>,5);
+labelCVub = predict(CVMdl_kub,Xtest);
+modelCVLoss = kfoldLoss(CVMdl_kub);
+testingLossub1 = loss(CVMdl_kub.Trained{1},Xtest_new,Ytest_new);
+testingLossub2 = loss(CVMdl_kub.Trained{2},Xtest_new,Ytest_new);
+testingLossub3 = loss(CVMdl_kub.Trained{3},Xtest_new,Ytest_new);
+testingLossub4 = loss(CVMdl_kub.Trained{4},Xtest_new,Ytest_new);
+testingLossub5 = loss(CVMdl_kub.Trained{5},Xtest_new,Ytest_new);
+</pre><h2>Random Forest<a name="6"></a></h2><h2>bootstrap size 66% equal<a name="7"></a></h2><pre class="codeinput">b = TreeBagger(100,Xtrain_new,Ytrain_new,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.66);
+label_new=(predict(b,Xtest_new));
+S = sprintf(<span class="string">'%s '</span>, label_new{:});
+D = sscanf(S, <span class="string">'%f'</span>);
+sum(D==Ytest_new)/size(Ytest_new,1)
+<span class="comment">% 0.7433</span>
+</pre><h2>bootstrap size 66% actual<a name="8"></a></h2><pre class="codeinput">b_ub = TreeBagger(100,Xtrain_ubnew,Ytrain_ubnew,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.66);
+label_ubnew=(predict(b_ub,Xtest_ubnew));
+Sub = sprintf(<span class="string">'%s '</span>, label_ubnew{:});
+Dub = sscanf(Sub, <span class="string">'%f'</span>);
+sum(Dub==Ytest_ubnew)/size(Ytest_ubnew,1)
+<span class="comment">% 0.7428</span>
+</pre><h2>bootstrap size 75% equal<a name="9"></a></h2><pre class="codeinput">b = TreeBagger(100,Xtrain_new,Ytrain_new,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.75);
+label_new=(predict(b,Xtest_new));
+S = sprintf(<span class="string">'%s '</span>, label_new{:});
+D = sscanf(S, <span class="string">'%f'</span>);
+sum(D==Ytest_new)/size(Ytest_new,1)
+<span class="comment">%0.7459</span>
+</pre><h2>bootstrap size 75% Actual<a name="10"></a></h2><pre class="codeinput">b_ub = TreeBagger(100,Xtrain_ubnew,Ytrain_ubnew,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.75);
+label_ubnew=(predict(b_ub,Xtest_ubnew));
+Sub = sprintf(<span class="string">'%s '</span>, label_ubnew{:});
+Dub = sscanf(Sub, <span class="string">'%f'</span>);
+sum(Dub==Ytest_ubnew)/size(Ytest_ubnew,1)
+<span class="comment">% 0.7455</span>
+</pre><h2>bootstrap size 85% equal<a name="11"></a></h2><pre class="codeinput">b = TreeBagger(100,Xtrain_new,Ytrain_new,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.85);
+label_new=(predict(b,Xtest_new));
+S = sprintf(<span class="string">'%s '</span>, label_new{:});
+D = sscanf(S, <span class="string">'%f'</span>);
+sum(D==Ytest_new)/size(Ytest_new,1)
+<span class="comment">% 0.7472</span>
+</pre><h2>bootstrap size 85% actual<a name="12"></a></h2><pre class="codeinput">b_ub = TreeBagger(100,Xtrain_ubnew,Ytrain_ubnew,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.85);
+label_ubnew=(predict(b_ub,Xtest_ubnew));
+Sub = sprintf(<span class="string">'%s '</span>, label_ubnew{:});
+Dub = sscanf(Sub, <span class="string">'%f'</span>);
+sum(Dub==Ytest_ubnew)/size(Ytest_ubnew,1)
+<span class="comment">% 0.7465</span>
+</pre><h2>To choose Out-of-Bag Classification Error equal<a name="13"></a></h2><pre class="codeinput">plot(oobError(b))
+xlabel(<span class="string">'Number of Grown Trees'</span>)
+ylabel(<span class="string">'Out-of-Bag Classification Error'</span>)
+title(<span class="string">'OOB vs Trees - Error Rate, Equal Representative'</span>)
+</pre><h2>To choose Out-of-Bag Classification Error actual<a name="14"></a></h2><pre class="codeinput">plot(oobError(b_ub))
+xlabel(<span class="string">'Number of Grown Trees'</span>)
+ylabel(<span class="string">'Out-of-Bag Classification Error'</span>)
+title(<span class="string">'OOB vs Trees - Error Rate, Actual Representative'</span>)
+</pre><h2>Training a classification tree with the original training set after the parameters are chosen through CV - for tree bagger no explicit CV methods were used<a name="15"></a></h2><pre class="codeinput">rng(1234);
+b_cv = TreeBagger(40,Xtrain,Ytrain,<span class="string">'Method'</span>,<span class="string">'classification'</span>,<span class="string">'OOBPred'</span>,<span class="string">'On'</span>,<span class="string">'OOBVarImp'</span>,<span class="string">'On'</span>,<span class="string">'Fboot'</span>,0.85);
+disp([b_cv.OOBPermutedVarDeltaError]);
+</pre><h2>Prediction<a name="16"></a></h2><pre class="codeinput">[label_new,scores]=(predict(b_cv,Xtest));
+S = sprintf(<span class="string">'%s '</span>, label_new{:});
+D = sscanf(S, <span class="string">'%f'</span>);
+sum(D==Ytest)/size(Ytest,1)
+<span class="comment">% 81.37% of the observations in the test set are classified correctly</span>
+</pre><h2>Margin OOB<a name="17"></a></h2><pre class="codeinput">mar = meanMargin(b_cv,Xtest,Ytest)
+plot(mar)
+xlabel(<span class="string">'Number of Grown Trees'</span>)
+ylabel(<span class="string">'Cumulative Out-of-Bag Mean Classification Margin'</span>)
+title(<span class="string">'Cumulative OOB Margin'</span>)
+</pre><h2>Variable Improtance<a name="18"></a></h2><pre class="codeinput">figure
+bar(b_cv.OOBPermutedVarDeltaError)
+xlabel <span class="string">'Feature Number'</span>
+ylabel <span class="string">'Out-of-Bag Feature Importance'</span>
+title <span class="string">'Feature Importance'</span>
+xlim([0 102])
+sum(b_cv.OOBPermutedVarDeltaError)
+<span class="comment">%478.3</span>
+idxvar = find(b_cv.OOBPermutedVarDeltaError&gt;=7)
+idxCategorical = find(iscategorical(idxvar)==1);
+</pre><h2>Error<a name="19"></a></h2><pre class="codeinput">err_cv = error(b_cv,Xtest,Ytest);
+1-mean(err_cv)
+<span class="comment">%    0.8111</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB® R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Take the training, validation and the test sets
+rng(1234);
+
+% X constains predictors and Y contains target
+%training and validation together
+sample_train = datasample(1:n,483186,'Replace',false);
+sample_test = setdiff(1:n,sample_train);
+
+% Initial Exploration of the clusters
+%summary(categorical(Y))
+%      1       30418
+%      2       16846
+%      3      336903
+%      4       40628
+%      5       58391
+
+%Taking clusterwise indices
+% I1=find(Y==1);
+% I2=find(Y==2);
+% I3=find(Y==3);
+% I4=find(Y==4);
+% I5=find(Y==5);
+
+%% Take equal Representative Sample
+sample_train1 = datasample(I1,15000,'Replace',false);
+sample_train2 = datasample(I2,15000,'Replace',false);
+sample_train3 = datasample(I3,15000,'Replace',false);
+sample_train4 = datasample(I4,15000,'Replace',false);
+sample_train5 = datasample(I5,15000,'Replace',false);
+sample_trainnew=[sample_train1;sample_train2;sample_train3;sample_train4;sample_train5];
+
+%Take the reminder
+sample_test1=setdiff(1:size(sample_train,2),sample_train1);
+sample_test2=setdiff(sample_test1,sample_train2);
+sample_test3=setdiff(sample_test2,sample_train3);
+sample_test4=setdiff(sample_test3,sample_train4);
+sample_testnew=setdiff(sample_test4,sample_train5);
+
+Xtrain_new=X(sample_trainnew,:);
+Ytrain_new=target(sample_trainnew);
+
+Xtest_new=X(sample_testnew,:);
+Ytest_new=target(sample_testnew);
+
+%% Actual Representative Sample
+sample_trainub1 = datasample(I1,4727,'Replace',false);
+sample_trainub2 = datasample(I2,2608,'Replace',false);
+sample_trainub3 = datasample(I3,52273,'Replace',false);
+sample_trainub4 = datasample(I4,6304,'Replace',false);
+sample_trainub5 = datasample(I5,9086,'Replace',false);
+sample_trainubnew=[sample_trainub1;sample_trainub2;sample_trainub3;sample_trainub4;sample_trainub5];
+
+%Take the reminder
+sample_testub1=setdiff(1:size(sample_train,2),sample_trainub1);
+sample_testub2=setdiff(sample_testub1,sample_trainub2);
+sample_testub3=setdiff(sample_testub2,sample_trainub3);
+sample_testub4=setdiff(sample_testub3,sample_trainub4);
+sample_testubnew=setdiff(sample_testub4,sample_trainub5);
+
+Xtrain_ubnew=X(sample_trainubnew,:);
+Ytrain_ubnew=target(sample_trainubnew);
+
+Xtest_ubnew=X(sample_testubnew,:);
+Ytest_ubnew=target(sample_testubnew);
+
+%% Data reduction
+cvfit_glmnet = cvglmnet(Xtrain_new, Ytrain_new,'multinomial');
+cvglmnetPlot(cvfit_glmnet);
+
+cvfit_glmnet = cvglmnet(Xtrain_ubnew, Ytrain_ubnew,'multinomial');
+cvglmnetPlot(cvfit_glmnet);
+
+cvfit_glmnetfinal = cvglmnet(Xtrain, Ytrain,'multinomial');
+opt.lambda_min=[0.0002];
+fit_glmnetfinal=glmnet(X,target,'multinomial', opt);
+
+reduced_pred=find(cvfit_glmnet.glmnet_fit.beta{2}(:,67));
+nnz(reduced_pred);
+
+%% Naive Bayes
+
+% Equal representative sample
+Mdl = fitcnb(Xtrain_new,Ytrain_new);
+label = predict(Mdl,Xtest_new);
+%labelp=posterior(Mdl,Xtest);
+sum(Ytest_new==label)
+% 109363
+labeln=label-1;
+labelp=label+1;
+sum(Ytest_new==labeln)
+%      51071
+
+sum(Ytest_new==labelp)
+%   52105
+
+%Actual Representative Sample
+Mdlub = fitcnb(Xtrain_ubnew,Ytrain_ubnew);
+labelub = predict(Mdlub,Xtest_ubnew);
+%labelp=posterior(Mdl,Xtest);
+sum(Ytest_ubnew==labelub)
+%   106732
+
+%Cross Validation equal representative sample
+rng(1234); % For reproducibility
+CVMdl = crossval(Mdl,'KFold',5);
+CVMdl_k=fitcnb(Xtrain_new,Ytrain_new,'KFold',5);
+labelCV = predict(CVMdl_k,Xtest);
+modelCVLoss = kfoldLoss(CVMdl_k);
+testingLoss1 = loss(CVMdl_k.Trained{1},Xtest_new,Ytest_new);
+testingLoss2 = loss(CVMdl_k.Trained{2},Xtest_new,Ytest_new);
+testingLoss3 = loss(CVMdl_k.Trained{3},Xtest_new,Ytest_new);
+testingLoss4 = loss(CVMdl_k.Trained{4},Xtest_new,Ytest_new);
+testingLoss5 = loss(CVMdl_k.Trained{5},Xtest_new,Ytest_new);
+
+%Cross Validation actual representative sample
+rng(1234); % For reproducibility
+CVMdlub = crossval(Mdlub,'KFold',5);
+CVMdl_kub=fitcnb(Xtrain_new,Ytrain_new,'KFold',5);
+labelCVub = predict(CVMdl_kub,Xtest);
+modelCVLoss = kfoldLoss(CVMdl_kub);
+testingLossub1 = loss(CVMdl_kub.Trained{1},Xtest_new,Ytest_new);
+testingLossub2 = loss(CVMdl_kub.Trained{2},Xtest_new,Ytest_new);
+testingLossub3 = loss(CVMdl_kub.Trained{3},Xtest_new,Ytest_new);
+testingLossub4 = loss(CVMdl_kub.Trained{4},Xtest_new,Ytest_new);
+testingLossub5 = loss(CVMdl_kub.Trained{5},Xtest_new,Ytest_new);
+
+%% Random Forest
+%% bootstrap size 66% equal
+b = TreeBagger(100,Xtrain_new,Ytrain_new,'Method','classification','OOBPred','On','Fboot',0.66);
+label_new=(predict(b,Xtest_new));
+S = sprintf('%s ', label_new{:});
+D = sscanf(S, '%f');
+sum(D==Ytest_new)/size(Ytest_new,1)
+% 0.7433
+%% bootstrap size 66% actual
+b_ub = TreeBagger(100,Xtrain_ubnew,Ytrain_ubnew,'Method','classification','OOBPred','On','Fboot',0.66);
+label_ubnew=(predict(b_ub,Xtest_ubnew));
+Sub = sprintf('%s ', label_ubnew{:});
+Dub = sscanf(Sub, '%f');
+sum(Dub==Ytest_ubnew)/size(Ytest_ubnew,1)
+% 0.7428
+%% bootstrap size 75% equal
+b = TreeBagger(100,Xtrain_new,Ytrain_new,'Method','classification','OOBPred','On','Fboot',0.75);
+label_new=(predict(b,Xtest_new));
+S = sprintf('%s ', label_new{:});
+D = sscanf(S, '%f');
+sum(D==Ytest_new)/size(Ytest_new,1)
+%0.7459
+%% bootstrap size 75% Actual
+b_ub = TreeBagger(100,Xtrain_ubnew,Ytrain_ubnew,'Method','classification','OOBPred','On','Fboot',0.75);
+label_ubnew=(predict(b_ub,Xtest_ubnew));
+Sub = sprintf('%s ', label_ubnew{:});
+Dub = sscanf(Sub, '%f');
+sum(Dub==Ytest_ubnew)/size(Ytest_ubnew,1)
+% 0.7455
+%% bootstrap size 85% equal
+b = TreeBagger(100,Xtrain_new,Ytrain_new,'Method','classification','OOBPred','On','Fboot',0.85);
+label_new=(predict(b,Xtest_new));
+S = sprintf('%s ', label_new{:});
+D = sscanf(S, '%f');
+sum(D==Ytest_new)/size(Ytest_new,1)
+% 0.7472
+%% bootstrap size 85% actual
+b_ub = TreeBagger(100,Xtrain_ubnew,Ytrain_ubnew,'Method','classification','OOBPred','On','Fboot',0.85);
+label_ubnew=(predict(b_ub,Xtest_ubnew));
+Sub = sprintf('%s ', label_ubnew{:});
+Dub = sscanf(Sub, '%f');
+sum(Dub==Ytest_ubnew)/size(Ytest_ubnew,1)
+% 0.7465
+
+%% To choose Out-of-Bag Classification Error equal
+plot(oobError(b))
+xlabel('Number of Grown Trees')
+ylabel('Out-of-Bag Classification Error')
+title('OOB vs Trees - Error Rate, Equal Representative')
+%% To choose Out-of-Bag Classification Error actual
+plot(oobError(b_ub))
+xlabel('Number of Grown Trees')
+ylabel('Out-of-Bag Classification Error')
+title('OOB vs Trees - Error Rate, Actual Representative')
+%% Training a classification tree with the original training set after the parameters are chosen through CV - for tree bagger no explicit CV methods were used
+
+rng(1234);
+b_cv = TreeBagger(40,Xtrain,Ytrain,'Method','classification','OOBPred','On','OOBVarImp','On','Fboot',0.85);
+disp([b_cv.OOBPermutedVarDeltaError]);
+%% Prediction
+[label_new,scores]=(predict(b_cv,Xtest));
+S = sprintf('%s ', label_new{:});
+D = sscanf(S, '%f');
+sum(D==Ytest)/size(Ytest,1)
+% 81.37% of the observations in the test set are classified correctly
+
+%% Margin OOB
+mar = meanMargin(b_cv,Xtest,Ytest)
+plot(mar)
+xlabel('Number of Grown Trees')
+ylabel('Cumulative Out-of-Bag Mean Classification Margin')
+title('Cumulative OOB Margin')
+
+%% Variable Improtance
+figure
+bar(b_cv.OOBPermutedVarDeltaError)
+xlabel 'Feature Number'
+ylabel 'Out-of-Bag Feature Importance'
+title 'Feature Importance'
+xlim([0 102])
+sum(b_cv.OOBPermutedVarDeltaError)
+%478.3
+idxvar = find(b_cv.OOBPermutedVarDeltaError>=7)
+idxCategorical = find(iscategorical(idxvar)==1);
+%% Error
+err_cv = error(b_cv,Xtest,Ytest);
+1-mean(err_cv)
+%    0.8111
+
+
+##### SOURCE END #####
+--></body></html>
